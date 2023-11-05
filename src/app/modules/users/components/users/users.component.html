@@ -1,0 +1,13 @@
+<ng-container *tuiLet="users$ | async as users">
+  <div class="users">
+    <div class="users__header">
+      <tui-input [(ngModel)]="searchUser">
+        Search user
+        <input tuiTextfield/>
+      </tui-input>
+    </div>
+    <div class="users__list">
+      <app-user-preview *ngFor="let user of users" [user]="user" [isOtherUser]="true"></app-user-preview>
+    </div>
+  </div>
+</ng-container>

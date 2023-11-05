@@ -1,0 +1,19 @@
+<app-core-layout>
+  <div class="layout">
+    <header class="layout__header">
+      <span>
+          <a class="logo" [routerLink]="'/'">
+            wiiishes
+          </a>
+        </span>
+      <span>
+          <app-theme-toggle></app-theme-toggle>
+        </span>
+    </header>
+    <section class="layout__content">
+      <router-outlet></router-outlet>
+    </section>
+    <footer class="layout__footer">
+    </footer>
+  </div>
+</app-core-layout>

@@ -1,0 +1,33 @@
+<ng-container *tuiLet="gifts$ | async as gifts">
+  <div class="gifts">
+    <div *ngFor="let gift of gifts; else listSkeleton; empty: listEmpty; trackBy: giftsTrackBy">
+      <div class="gifts__user">
+        <app-user-preview [user]="gift.user"></app-user-preview>
+      </div>
+      <div class="gifts__list">
+        <app-wishes-item *ngFor="let giftItem of gift.data; trackBy: giftItemsTrackBy" [wish]="giftItem"
+                         [uid]="giftItem.user!.authUid"></app-wishes-item>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #listEmpty>
+  <div class="gifts__empty">🥺 There is no gifts</div>
+</ng-template>
+
+<ng-template #listSkeleton>
+  <div class="gift-skeleton fade" *ngFor="let _ of skeletonsArray">
+    <div class="gift-skeleton__items">
+      <div class="tui-skeleton tui-skeleton_image tui-skeleton_rounded"></div>
+      <div class="tui-skeleton tui-skeleton_text tui-skeleton_rounded"></div>
+    </div>
+    <div class="gifts__list">
+      <div class="gift-skeleton__item" *ngFor="let _ of skeletonsArray">
+        <div class="gift-skeleton__image skeleton-image tui-skeleton tui-skeleton_image tui-skeleton_rounded"></div>
+        <div class="tui-skeleton tui-skeleton_text skeleton-text tui-skeleton_rounded"></div>
+        <div class="tui-skeleton tui-skeleton_text skeleton-text tui-skeleton_rounded"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

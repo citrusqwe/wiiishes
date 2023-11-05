@@ -1,0 +1,38 @@
+@import "mixins";
+
+.user {
+  .flex-align-items-center;
+  gap: var(--wishes-margin-xl);
+  margin-bottom: var(--wishes-margin-xl);
+
+  &--other {
+    margin-bottom: 0;
+
+    .user__avatar, .user__name {
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        filter: opacity(0.8);
+      }
+    }
+  }
+
+  &__info {
+    .flex-column;
+    gap: var(--tui-padding-s);
+  }
+
+  &__name {
+    font: var(--tui-font-heading-4);
+  }
+
+  &__wishes-count {
+    .flex-align-items-center;
+    gap: var(--tui-padding-m);
+  }
+
+  &__wishes-text {
+    font: var(--tui-font-text-xl);
+  }
+}

@@ -1,0 +1,117 @@
+<ng-container *tuiLet="wish$ | async as wish">
+  <ng-container *tuiLet="!!(isLoading$ | async) as loading">
+    <div class="wishes-preview preview">
+      <div class="preview__form-container">
+        <ng-container *ngTemplateOutlet="uid ? previewWish : workOnWish; context: {wish, loading};"></ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #workOnWish let-wish="wish" let-loading="loading">
+  <h4 class="preview__form-title">{{wish ? 'edit wish' : 'create wish'}}</h4>
+  <form class="preview__form" [formGroup]="wishForm">
+    <div class="tui-form__row" [skeleton]="loading">
+      <ng-container *tuiLet="imagePreview$ | async as imagePreview">
+        <tui-input-files *ngIf="!imagePreview"
+                         accept="image/*"
+                         [formControl]="imageControl"
+                         (reject)="onReject($event)">
+          <ng-template let-dragged>
+            <div *ngIf="dragged; else base" class="content">
+              <tui-marker-icon
+                  mode="link"
+                  src="tuiIconDroplet"
+                  class="tui-space_bottom-2">
+              </tui-marker-icon>
+              <div>drop it like it's hot!</div>
+            </div>
+            <ng-template #base>
+              <div class="content">
+                <tui-marker-icon
+                    mode="link"
+                    src="tuiIconImage"
+                    class="tui-space_bottom-2">
+                </tui-marker-icon>
+                <div>
+                  drag and drop image here or
+                  <a tuiLink>click to upload</a>
+                </div>
+              </div>
+            </ng-template>
+          </ng-template>
+        </tui-input-files>
+        <tui-files>
+          <img *ngIf="imagePreview" class="preview__image-preview"
+               [src]="imagePreview" [alt]="'preview'">
+          <tui-file
+              *ngIf="loadedFiles$ | async as file"
+              [file]="file"
+              [showDelete]="imageControl.enabled"
+              (removed)="removeFile()"
+          ></tui-file>
+          <tui-file
+              *ngIf="rejectedFiles$ | async as file"
+              state="error"
+              [file]="file"
+              [showDelete]="imageControl.enabled"
+              (removed)="clearRejected()"
+          ></tui-file>
+        </tui-files>
+      </ng-container>
+    </div>
+    <div class="tui-form__row" [skeleton]="loading">
+      <tui-input formControlName="title">
+        title
+        <input tuiTextfield placeholder="wish"/>
+        <span class="tui-required"></span>
+      </tui-input>
+      <tui-error formControlName="title" [error]="[] | tuiFieldError | async"></tui-error>
+    </div>
+    <div class="tui-form__row" [skeleton]="loading">
+      <tui-input formControlName="description">
+        description
+        <input tuiTextfield placeholder="super mega wish"/>
+        <span class="tui-required"></span>
+      </tui-input>
+      <tui-error formControlName="description" [error]="[] | tuiFieldError | async"></tui-error>
+    </div>
+    <div class="tui-form__row" [skeleton]="loading">
+      <tui-select formControlName="rating" [valueContent]="ratingContent">
+        rate your wish
+        <tui-data-list-wrapper
+            *tuiDataList
+            [items]="ratingSelect"
+            [itemContent]="ratingContent">
+        </tui-data-list-wrapper>
+      </tui-select>
+      <ng-template #ratingContent let-data>
+        <span>{{data.label}}</span>
+      </ng-template>
+      <tui-error formControlName="rating" [error]="[] | tuiFieldError | async"></tui-error>
+    </div>
+  </form>
+  <div class="wishes-form__actions">
+    <button tuiButton
+            class="wishes-form__action"
+            size="m"
+            [skeleton]="loading"
+            [icon]="wish ? 'tuiIconEdit2' : 'tuiIconStar'"
+            [disabled]="wishForm.invalid || loading"
+            (click)="wish ? editWish() : createWish()">
+      {{wish ? 'edit' : 'create'}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #previewWish let-wish="wish" let-loading="loading">
+  <h4 class="preview__form-title">preview wish</h4>
+  <div [skeleton]="loading">
+    <img class="preview__image-preview" [src]="wish?.image" [alt]="wish?.title">
+  </div>
+  <div class="preview__info">
+    <div class="preview__text preview__text--title" [skeleton]="loading">{{wish?.title}}</div>
+    <div class="preview__text" [skeleton]="loading">{{wish?.description}}</div>
+    <div class="preview__text" [skeleton]="loading">{{wish?.rating?.label}}</div>
+  </div>
+</ng-template>

@@ -1,0 +1,19 @@
+<div class="wishes">
+  <app-wishes-header [uid]="uid"></app-wishes-header>
+  <div class="wishes__list">
+    <app-wishes-item *ngFor="let wish of wishes$ | async as wishes; else: listSkeleton; empty: listEmpty"
+                     [wish]="wish" [uid]="uid"></app-wishes-item>
+  </div>
+</div>
+
+<ng-template #listEmpty>
+  <div class="wishes__empty">🥺 There is no wishes</div>
+</ng-template>
+
+<ng-template #listSkeleton>
+  <div class="fade" *ngFor="let _ of skeletonsArray">
+    <p class="tui-skeleton tui-skeleton_image" [ngStyle]="{width: '100%', height: '250px'}"></p>
+    <p class="tui-skeleton tui-skeleton_text"></p>
+    <p class="tui-skeleton tui-skeleton_text"></p>
+  </div>
+</ng-template>

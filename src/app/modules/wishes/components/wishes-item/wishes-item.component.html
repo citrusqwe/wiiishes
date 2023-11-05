@@ -1,0 +1,78 @@
+<div class="wish-item" [class.ho-hover]="menuOpen" *ngIf="wish">
+  <div class="wish-item__img-wrapper">
+    <img class="wish-item__img"
+         alt="img"
+         loading="lazy"
+         [src]="wish.image"
+         [width]="300" [height]="250">
+    <tui-badge
+        class="wish-item__badge"
+        status="primary"
+        [value]="wish.rating.label"
+    ></tui-badge>
+    <tui-hosted-dropdown
+        class="wish-item__actions-btn"
+        tuiDropdownAlign="right"
+        [content]="uid ? otherDropdown : myDropdown"
+        [sided]="true"
+        [(open)]="menuOpen"
+    >
+      <button tuiIconButton size="s"
+              [icon]="'tuiIconMoreVertical'"
+              [pseudoActive]="menuOpen || null">
+      </button>
+    </tui-hosted-dropdown>
+  </div>
+  <div class="wish-item__info">
+    <span class="wish-item__name" (click)="openPreview()">{{wish.title}}</span>
+    <p class="wish-item__description">{{wish.description}}</p>
+  </div>
+</div>
+
+<ng-template
+  #myDropdown
+  let-close="close"
+>
+  <tui-data-list>
+    <tui-opt-group>
+      <button class="wish-item__menu-item" tuiOption (click)="openPreview()">
+        <tui-svg [src]="'tuiIconEdit3'"></tui-svg>
+        edit
+      </button>
+      <button class="wish-item__menu-item" tuiOption (click)="deleteWish()">
+        <tui-svg [src]="'tuiIconTrash'"></tui-svg>
+        delete
+      </button>
+    </tui-opt-group>
+    <tui-opt-group>
+      <button class="wish-item__menu-item" tuiOption (click)="close()">
+        <tui-svg [src]="'tuiIconClose'"></tui-svg>
+        nevermind
+      </button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>
+
+<ng-template
+  #otherDropdown
+  let-close="close"
+>
+  <tui-data-list>
+    <tui-opt-group>
+      <button class="wish-item__menu-item" tuiOption [skeleton]="!!(isLoading$ | async)" (click)="openPreview()">
+        <tui-svg [src]="'tuiIconEdit3'"></tui-svg>
+        view
+      </button>
+      <button class="wish-item__menu-item" tuiOption [skeleton]="!!(isLoading$ | async)" (click)="gift()">
+        <tui-svg [src]="'tuiIconGift'"></tui-svg>
+        gift
+      </button>
+    </tui-opt-group>
+    <tui-opt-group>
+      <button class="wish-item__menu-item" tuiOption [skeleton]="!!(isLoading$ | async)" (click)="close()">
+        <tui-svg [src]="'tuiIconClose'"></tui-svg>
+        nevermind
+      </button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>

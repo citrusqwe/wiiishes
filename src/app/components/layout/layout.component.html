@@ -1,0 +1,68 @@
+<ng-container *tuiLet="user$ | async as user">
+  <app-core-layout>
+    <div class="layout">
+      <header class="layout__header">
+        <div class="layout__header-links header-links">
+          <a *ngFor="let link of sidebarLinks"
+             class="header-links__item"
+             tuiLink
+             iconAlign="left"
+             routerLinkActive="active"
+             [icon]="link.icon"
+             [routerLink]="link.path"
+          >
+            {{link.text}}
+          </a>
+        </div>
+        <span>
+          <a class="logo" routerLink="/">
+            wiiishes
+          </a>
+        </span>
+        <div class="layout__header-info">
+        <span>
+          <app-theme-toggle></app-theme-toggle>
+        </span>
+          <tui-hosted-dropdown
+              tuiDropdownAlign="right"
+              [(open)]="userMenuOpen"
+              [sided]="true"
+              [skeleton]="!user"
+              [content]="userMenu"
+          >
+            <div class="layout__user user">
+              <tui-avatar class="user__avatar" [avatarUrl]="user?.image || 'tuiIconUserLarge'"></tui-avatar>
+              <tui-svg class="user__icon" [class.rotate]="userMenuOpen" [src]="'tuiIconChevronDown'"></tui-svg>
+            </div>
+          </tui-hosted-dropdown>
+        </div>
+      </header>
+      <section class="layout__content">
+        <router-outlet></router-outlet>
+      </section>
+      <footer class="layout__footer">
+      </footer>
+    </div>
+  </app-core-layout>
+
+  <ng-template #userMenu let-close="close">
+    <tui-data-list>
+      <tui-opt-group>
+        <button class="layout__menu-item" tuiOption [routerLink]="'/profile/' + user?.id">
+          <tui-svg [src]="'tuiIconUser'"></tui-svg>
+          {{user?.username}}
+        </button>
+        <button class="layout__menu-item" tuiOption (click)="logout()">
+          <tui-svg [src]="'tuiIconLogOut'"></tui-svg>
+          logout
+        </button>
+      </tui-opt-group>
+      <tui-opt-group>
+        <button class="layout__menu-item" tuiOption (click)="close()">
+          <tui-svg [src]="'tuiIconClose'"></tui-svg>
+          nevermind
+        </button>
+      </tui-opt-group>
+    </tui-data-list>
+  </ng-template>
+</ng-container>

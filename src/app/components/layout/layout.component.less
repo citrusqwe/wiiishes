@@ -1,0 +1,57 @@
+@import "mixins";
+
+.sidebar {
+  padding: var(--tui-padding-m);
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tui-padding-s);
+  }
+
+  &__plate {
+    background: var(--tui-base-02);
+  }
+}
+
+.layout {
+  &__header-info {
+    .flex-align-items-center();
+    gap: var(--wishes-padding-xxxl);
+  }
+
+  &__menu-item {
+    .flex-align-items-center();
+    justify-content: unset;
+  }
+}
+
+.header-links {
+  .flex-align-items-center();
+  gap: var(--tui-padding-l);
+
+  &__item {
+    font: var(--tui-font-heading-6);
+    padding-bottom: var(--tui-padding-s);
+    color: var(--tui-text-02);
+
+    &.active {
+      color: var(--tui-link);
+      //border-bottom: 2px solid currentColor;
+    }
+  }
+}
+
+.user {
+  .flex-align-items-center();
+  gap: var(--tui-padding-m);
+  cursor: pointer;
+
+  &__icon {
+    transition: all 0.2s ease-in-out;
+
+    &.rotate {
+      transform: rotate(90deg);
+    }
+  }
+}

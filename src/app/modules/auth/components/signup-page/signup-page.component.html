@@ -1,0 +1,126 @@
+<div class="wrapper">
+  <tui-loader size="l" [showLoader]="!!(isLoading$ | async)" [overlay]="true">
+    <div class="signup">
+      <div class="signup__uploader">
+        <ng-container *tuiLet="imagePreview$ | async as image">
+          <div class="signup__image">
+            <tui-avatar
+                [avatarUrl]="image || 'tuiIconImage'"
+                size="xxl"
+            ></tui-avatar>
+            <label *ngIf="!image else imageRemove" class="signup__btn" for="image-upload">
+              <tui-svg [src]="'tuiIconEdit3'"></tui-svg>
+            </label>
+            <ng-template #imageRemove>
+              <button class="signup__btn" (click)="clearImage($event)">
+                <tui-svg [src]="'tuiIconClose'"></tui-svg>
+              </button>
+            </ng-template>
+            <input type="file" accept="image/*" id="image-upload" (change)="selectImage($event)" hidden>
+          </div>
+        </ng-container>
+      </div>
+      <div class="signup__form">
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+          <div>
+            <h3 class="tui-form__header tui-form__header_margin-top_none">create user</h3>
+            <div class="tui-form__row">
+              <tui-input formControlName="username">
+                username
+                <input
+                    placeholder="enter username"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="username"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__row">
+              <tui-input formControlName="email">
+                email
+                <input
+                    placeholder="enter email"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="email"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__row">
+              <tui-input-date
+                  formControlName="birthday"
+                  tuiUnfinishedValidator="Finish filling the field"
+              >
+                choose a birthday
+              </tui-input-date>
+              <tui-error
+                  formControlName="birthday"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__row">
+              <tui-input formControlName="password">
+                password
+                <input
+                    placeholder="enter password"
+                    type="password"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="password"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__row">
+              <tui-input formControlName="confirmPassword">
+                confirm password
+                <input
+                    placeholder="confirm password"
+                    type="password"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="confirmPassword"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <tui-error [error]="signupForm.getError('passwordsMatch')"></tui-error>
+            <div class="tui-form__buttons signup-form__buttons">
+              <button
+                  size="m"
+                  tuiButton
+                  type="submit"
+                  [disabled]="signupForm.invalid"
+              >
+                create
+              </button>
+              <button
+                  size="m"
+                  appearance="secondary"
+                  type="button"
+                  tuiButton
+                  (click)="signupWithGoogle()"
+              >
+                <tui-svg [src]="'assets/icons/google.svg'"></tui-svg>
+                create with google
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </tui-loader>
+  <div class="signup__message">login <a class="signup__message-btn" tuiIconButton appearance="flat"
+                                        [icon]="'tuiIconUserCheck'"
+                                        [routerLink]="'/auth/login'">here</a></div>
+</div>
