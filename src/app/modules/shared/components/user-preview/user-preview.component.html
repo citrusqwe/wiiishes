@@ -1,0 +1,15 @@
+<div class="user" [class.user--other]="link">
+  <tui-avatar
+      class="user__avatar"
+      size="xxl"
+      [routerLink]="link"
+      [avatarUrl]="user?.image || 'tuiIconUserLarge'"
+      [skeleton]="!user"
+  ></tui-avatar>
+  <div class="user__info">
+    <span class="user__name" [skeleton]="!user" [routerLink]="link">{{user?.username || 'no username'}}</span>
+    <ng-container *ngIf="isOtherUser">
+      <button [icon]="'tuiIconUserPlus'" size="s" tuiButton>add</button>
+    </ng-container>
+  </div>
+</div>

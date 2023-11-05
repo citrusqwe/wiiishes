@@ -1,0 +1,39 @@
+<ng-container *tuiLet="user$ | async as user">
+  <div class="header">
+    <div class="header__person person">
+      <tui-avatar
+          class="person__avatar"
+          size="xl"
+          [avatarUrl]="user?.image || 'tuiIconUserLarge'"
+          [skeleton]="!user"
+      ></tui-avatar>
+      <div class="person__info">
+        <span class="person__name" [skeleton]="!user">{{user?.username || 'no username'}}</span>
+        <div class="person__wishes-count" [skeleton]="!user">
+          <span class="person__wishes-text">wishes</span>
+          <tui-badge
+              status="primary"
+              [value]="1"
+          ></tui-badge>
+        </div>
+      </div>
+    </div>
+    <div class="header__title" [skeleton]="!user">
+      <ng-container *ngTemplateOutlet="isMe ? me : otherUser"></ng-container>
+    </div>
+  </div>
+
+  <ng-template #me>
+    <h3 class="header__title-text">my wishes list</h3>
+    <button class="header__create-btn" tuiButton size="m" routerLink="create" [iconRight]="'tuiIconHeart'">
+      make a wish
+    </button>
+  </ng-template>
+
+  <ng-template #otherUser>
+    <h3 class="header__title-text">{{user?.username}}'s wishes list</h3>
+  </ng-template>
+
+</ng-container>
+
+

@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@taiga-ui/core/styles/taiga-ui-theme.less';
+@import '@taiga-ui/core/styles/taiga-ui-fonts.less';
+@import "@taiga-ui/styles/taiga-ui-global.less";
+@import "assets/styles/vars";
+
+//* {
+//  font: 14px 'Montserrat', sans-serif;
+//}
+
+.fade {
+  animation: ease-in-out fade 0.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

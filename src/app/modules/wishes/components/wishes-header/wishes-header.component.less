@@ -1,0 +1,34 @@
+@import "mixins";
+
+
+.header {
+  &__title {
+    .flex-space-between;
+    margin-bottom: var(--wishes-margin-xl);
+    font: var(--tui-font-heading-5);
+  }
+}
+
+.person {
+  .flex-align-items-center;
+  gap: var(--wishes-margin-xl);
+  margin-bottom: var(--wishes-margin-xl);
+
+  &__info {
+    .flex-column;
+    gap: var(--tui-padding-s);
+  }
+
+  &__name {
+    font: var(--tui-font-heading-4);
+  }
+
+  &__wishes-count {
+    .flex-align-items-center;
+    gap: var(--tui-padding-m);
+  }
+
+  &__wishes-text {
+    font: var(--tui-font-text-xl);
+  }
+}

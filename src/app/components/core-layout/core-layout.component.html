@@ -1,0 +1,6 @@
+<ng-container *ngIf="theme$ | async as theme">
+  <tui-theme-night *ngIf="theme === 'onDark'"></tui-theme-night>
+  <tui-root [tuiMode]="theme">
+    <ng-content></ng-content>
+  </tui-root>
+</ng-container>

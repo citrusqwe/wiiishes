@@ -1,0 +1,21 @@
+@import "mixins";
+
+.wrapper {
+  .auth-wrapper();
+}
+
+.login {
+  .auth-page();
+
+  &__icon {
+    font-size: 58px;
+  }
+
+  &__message {
+    .auth-message();
+  }
+}
+
+.login-form {
+  .auth-form();
+}

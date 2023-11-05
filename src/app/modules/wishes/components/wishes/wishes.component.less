@@ -1,0 +1,46 @@
+@import "mixins";
+
+.wishes {
+  padding: var(--wishes-padding-xxxl);
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: var(--wishes-margin-xl);
+  }
+
+  &__empty {
+    font: var(--tui-font-heading-4);
+    padding: var(--wishes-padding-xxxl);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.wishes-form {
+  &__title {
+    font: var(--tui-font-heading-5);
+    margin: 0 0 var(--wishes-margin-l) 0;
+  }
+
+  &__preview {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .form {
+    &__inputs {
+      .flex-column;
+      gap: var(--tui-padding-l);
+    }
+
+    margin-bottom: var(--wishes-margin-xl);
+  }
+
+  &__actions {
+    .flex-align-items-center;
+    gap: var(--tui-padding-l);
+  }
+}

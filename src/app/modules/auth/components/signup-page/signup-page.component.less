@@ -1,0 +1,17 @@
+@import "mixins";
+
+.wrapper {
+  .auth-wrapper();
+}
+
+.signup {
+  .auth-page();
+
+  &__message {
+    .auth-message();
+  }
+}
+
+.signup-form {
+  .auth-form();
+}

@@ -1,0 +1,67 @@
+<div class="wrapper">
+  <tui-loader size="l" [showLoader]="!!(isLoading$ | async)" [overlay]="true">
+    <div class="login">
+      <div class="login__uploader">
+        <div class="login__icon">👋🥳</div>
+      </div>
+      <div class="login__form">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div>
+            <h3 class="tui-form__header tui-form__header_margin-top_none">login</h3>
+            <div class="tui-form__row">
+              <tui-input formControlName="email">
+                email
+                <input
+                    placeholder="enter email"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="email"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__row">
+              <tui-input formControlName="password">
+                password
+                <input
+                    placeholder="enter password"
+                    type="password"
+                    tuiTextfield
+                />
+                <span class="tui-required"></span>
+              </tui-input>
+              <tui-error
+                  formControlName="password"
+                  [error]="[] | tuiFieldError | async"
+              ></tui-error>
+            </div>
+            <div class="tui-form__buttons login-form__buttons">
+              <button
+                  size="m"
+                  tuiButton
+                  type="submit"
+                  [disabled]="loginForm.invalid"
+              >
+                login
+              </button>
+              <button
+                  size="m"
+                  appearance="secondary"
+                  type="button"
+                  tuiButton
+                  (click)="loginWithGoogle()"
+              >
+                <tui-svg [src]="'assets/icons/google.svg'"></tui-svg>
+                login with google
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </tui-loader>
+  <div class="login__message">create new user <a class="login__message-btn" tuiIconButton appearance="flat" [icon]="'tuiIconUserPlus'"
+                                                  [routerLink]="'/auth/signup'">here</a></div>
+</div>

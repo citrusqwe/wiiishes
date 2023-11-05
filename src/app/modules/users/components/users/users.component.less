@@ -1,0 +1,15 @@
+@import "mixins";
+
+.users {
+  padding: var(--wishes-padding-xxxl) var(--wishes-padding-xxxl);
+
+  &__header {
+    margin-bottom: var(--wishes-margin-xl);
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: var(--wishes-margin-xl);
+  }
+}
